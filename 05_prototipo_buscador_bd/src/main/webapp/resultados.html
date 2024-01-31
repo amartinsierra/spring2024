@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Entradas de la temática <span th:text="${param.tematica}"></span></h1>
+	<h1 th:text="@{Resultados de la temática:}+${param.tematica}"></span></h1>
 	<div th:each="r:${resultados}">
 		<h2><a th:href="${r.url}" th:text="${r.url}"></a></h2>
 		<h4 th:text="${r.descripcion}"></h4>
