@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +51,25 @@ public class LibreriaController {
 	}
 	@GetMapping(value="agregarCarrito",produces="application/json")
 	public @ResponseBody List<Libro> agregarCarrito(@RequestParam("isbn") int isbn,HttpSession sesion){
-		
-		
+		Libro libro=librosService.getLibro(isbn);
+		List<Libro> carrito=new ArrayList<>();
+		if(sesion.getAttribute("carrito")!=null) {
+				carrito=(List<Libro>)sesion.getAttribute("carrito");
+		}
+		carrito.add(libro);
+		sesion.setAttribute("carrito", carrito);
+		return carrito;
 	}
 	@GetMapping(value="quitarCarrito",produces="application/json")
 	public @ResponseBody List<Libro> quitarCarrito(@RequestParam("pos") int pos,HttpSession sesion){
+		List<Libro> carrito=new ArrayList<>();
+		if(sesion.getAttribute("carrito")!=null) {
+				carrito=(List<Libro>)sesion.getAttribute("carrito");
+				carrito.remove(pos);
+		}
 		
-		
+		sesion.setAttribute("carrito", carrito);
+		return carrito;
 	}
 	
 }
