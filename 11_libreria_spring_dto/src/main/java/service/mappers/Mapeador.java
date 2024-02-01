@@ -30,10 +30,10 @@ public class Mapeador {
 	}
 	
 	public  ClienteDto clienteEntityToDto(Cliente cliente) {
-		return new ClienteDto(cliente.getUsuario(),
+		return cliente!=null?new ClienteDto(cliente.getUsuario(),
 							cliente.getPassword(),
 							cliente.getEmail(),
-							cliente.getTelefono());
+							cliente.getTelefono()):null;
 	}
 	
 	public  Cliente clienteDtoToEntity(ClienteDto cliente) {
