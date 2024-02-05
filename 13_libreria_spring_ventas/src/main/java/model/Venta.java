@@ -28,7 +28,7 @@ public class Venta {
 	private Cliente cliente;
 	
 	@ManyToOne()
-	@JoinColumn(name="isbn",referencedColumnName = "isbn")
+	@JoinColumn(name="idLibro",referencedColumnName = "isbn")
 	private Libro libro;
 	
 }
