@@ -34,6 +34,9 @@ public class Mapeador {
 				libro.getPaginas(),
 				service.getTema(libro.getTema().getIdTema()));
 	}
+	public Libro libroDtoToEntity(LibroDto libro) {
+		return new Libro(libro.getIsbn(),libro.getTitulo(),libro.getAutor(),libro.getPrecio(),libro.getPaginas(),null);
+	}
 	
 	public  ClienteDto clienteEntityToDto(Cliente cliente) {
 		return cliente!=null?new ClienteDto(cliente.getUsuario(),

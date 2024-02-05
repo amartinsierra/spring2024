@@ -11,12 +11,12 @@
 <link rel="stylesheet" >
 </head>
 <body>
-	<h2>ventas de <span th:text="${session.cliente.usuario}"></span> </h2>
+	<h2>Compras de <span th:text="${session.cliente.usuario}"></span> </h2>
 	<center>
 		<table border="1">
 			<tr>
-				<th>Nombre</th>
-				<th>Precio</th>
+				<th>Fecha compra</th>
+				<th>Libro</th>
 			</tr>
 			
 				<tr th:each="v:${ventas}">

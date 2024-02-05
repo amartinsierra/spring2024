@@ -1,5 +1,6 @@
 package service.implementations;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import dao.ClientesDao;
 import dao.VentasDao;
+import dtos.LibroDto;
 import dtos.VentaDto;
+import model.Cliente;
+import model.Venta;
 import service.interfaces.VentasService;
 import service.mappers.Mapeador;
 @Service
@@ -24,6 +28,16 @@ public class VentasServiceImpl implements VentasService {
 				.stream()
 				.map(v->mapeador.ventaEntityToDto(v))
 				.toList();
+	}
+	@Override
+	public void registrarCompra(String usuario, List<LibroDto> libros) {
+		Cliente cliente=clientesDao.findByUsuario(usuario);
+		for(LibroDto dto:libros) {
+			Venta venta=new Venta(0, new Date(), cliente, mapeador.libroDtoToEntity(dto));
+			ventasDao.save(venta);
+		}
+		
+		
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +51,7 @@ public class LibreriaController {
 		
 		return "menu";
 	}
+	
 	@GetMapping(value="consulta")
 	public String consulta( Model model) {
 		
@@ -89,6 +91,15 @@ public class LibreriaController {
 		ClienteDto dto=(ClienteDto)sesion.getAttribute("cliente");
 		model.addAttribute("ventas",ventasService.informeVentasCliente(dto.getUsuario()));
 		return "ventas";
+	}
+	@GetMapping(value="comprar")
+	public String comprar(HttpSession sesion) {
+		ClienteDto cliente=(ClienteDto)sesion.getAttribute("cliente");
+		List<LibroDto> libros=(List<LibroDto>)sesion.getAttribute("carrito");
+		ventasService.registrarCompra(cliente.getUsuario(), libros);		
+		//fuerzo fin de sesion
+		sesion.invalidate();
+		return "login";
 	}
 	
 }
